@@ -6,13 +6,15 @@ for (var index = 0; index < nameTasks.length; index ++){
         
     nameTasks[index].onclick = function(){
         for (var index = 0; index < hiddenTasks.length; index ++){
+  
             hiddenTasks[index].style.display = "none"
             if(this.innerHTML == nameTasks[index].innerHTML)
                 hiddenTasks[index].style.display = "block"
+
+
         }   
     }   
 }
-
 
 
 var taskName = document.getElementById("taskName");
@@ -35,20 +37,33 @@ var msg = document.getElementById("msg");
 
 var viewTask = document.getElementById("viewTask");
 
-var showAllTasks = document.getElementById("showAllTasks")
+var showTasks = document.getElementById("showTasks")
+
+var showingSelectedTask = document.getElementById('showingSelectedTask');
 
 
-var allTasks = [{name: "Criar classe mãe Pessoa", description: "criar propriedades:Bairro,Cidade,Estado,Telefone,E-mail", endDate: "2024-03-30", priority: "1 - Baixíssima", status: "Backlog" },
-{name: "Criar classe mãe Candidato", description: "criar propriedades: cpf, idade", endDate: "2024-03-30", priority: "1 - Baixíssima", status: "Done" }]; //lista de todas as tarefas
+var allTasks = [{name: "Criar classe mãe Pessoa", description: "criar propriedades: Bairro, Cidade, Estado, Telefone, E-mail", endDate: "2024-03-30", priority: "1 - Baixíssima", status: "Backlog" },
+{name: "Criar classe Candidato", description: "criar propriedades: cpf, idade", endDate: "2024-03-30", category: "classe", priority: "1 - Baixíssima", status: "Done" }]; //lista de todas as tarefas
+
 
 function addTasks(objectx, listx){  //função para adicionar um objeto à lista
     listx.push(objectx);
 }
 
 
+function showTasksByName(){
+    
+    for (task in allTasks){
+        showTasks.innerHTML += "<option>" + allTasks[task].name + "</option>";
+    }
+    console.log(allTasks)
+}
+
+
+showTasksByName();
+
 
 submitButton.onclick = function(){
-    taskName.value
     
     try{
         var task = {
@@ -56,7 +71,7 @@ submitButton.onclick = function(){
             "description" : taskDescription.value,
             "endDate" : taskEndDate.value,
             "priority" : selectedPriorityValue,
-            "category" : taskCategory,
+            "category" : taskCategory.value,
             "status" : selectedStatusValue
         }
         
@@ -72,7 +87,33 @@ submitButton.onclick = function(){
     catch{
         window.alert("Ocorreu um erro.")
     }
+
+    showTasks.innerHTML = " "
+        showTasksByName();
 }
+
+
+showTasks.onchange = function(){   //exibir tarefa selecionada
+
+    showingSelectedTask.innerHTML = " ";
+    
+    var selectedTask = showTasks.options.selectedIndex;
+
+    showingSelectedTask.innerHTML = "<br><b>Nome da Tarefa:</b> " + allTasks[selectedTask].name +
+    "<br><b>Descrição</b>: " + allTasks[selectedTask].description +
+    "<br><b>Data para finalização:</b> " + allTasks[selectedTask].endDate +
+    "<br><b>Prioridade: </b>" + allTasks[selectedTask].priority +
+    "<br><b>Categoria : </b>" + allTasks[selectedTask].category +
+    "<br><b>Status: </b>" + allTasks[selectedTask].status
+}
+
+
+
+
+
+
+
+
 
 
 
