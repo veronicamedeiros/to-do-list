@@ -43,7 +43,8 @@ var showingSelectedTask = document.getElementById('showingSelectedTask');
 
 
 var allTasks = [{name: "Criar classe mãe Pessoa", description: "criar propriedades: Bairro, Cidade, Estado, Telefone, E-mail", endDate: "2024-03-30", priority: "1 - Baixíssima", status: "Backlog" },
-{name: "Criar classe Candidato", description: "criar propriedades: cpf, idade", endDate: "2024-03-30", category: "classe", priority: "1 - Baixíssima", status: "Done" }]; //lista de todas as tarefas
+{name: "Criar classe Candidato", description: "criar propriedades: cpf, idade", endDate: "2024-03-30", category: "classe", priority: "1 - Baixíssima", status: "Done" }, 
+{ name: "Criar classe Empresa", description: "Incluir atributos CNPJ e Razão Social.", endDate: "2024-03-22", category: "classe", priority: "1 - Baixíssima", status: "Done"}]; //lista de todas as tarefas
 
 
 function addTasks(objectx, listx){  //função para adicionar um objeto à lista
@@ -53,6 +54,7 @@ function addTasks(objectx, listx){  //função para adicionar um objeto à lista
 
 function showTasksByName(){
     
+    showTasks.innerHTML = "<option selected hidden>Selecione uma tarefa</option>";
     for (task in allTasks){
         showTasks.innerHTML += "<option>" + allTasks[task].name + "</option>";
     }
@@ -89,7 +91,7 @@ submitButton.onclick = function(){
     }
 
     showTasks.innerHTML = " "
-        showTasksByName();
+    showTasksByName();
 }
 
 
@@ -98,14 +100,35 @@ showTasks.onchange = function(){   //exibir tarefa selecionada
     showingSelectedTask.innerHTML = " ";
     
     var selectedTask = showTasks.options.selectedIndex;
+    selectedTask -= 1;
+    
 
     showingSelectedTask.innerHTML = "<br><b>Nome da Tarefa:</b> " + allTasks[selectedTask].name +
     "<br><b>Descrição</b>: " + allTasks[selectedTask].description +
     "<br><b>Data para finalização:</b> " + allTasks[selectedTask].endDate +
     "<br><b>Prioridade: </b>" + allTasks[selectedTask].priority +
     "<br><b>Categoria : </b>" + allTasks[selectedTask].category +
-    "<br><b>Status: </b>" + allTasks[selectedTask].status
+    "<br><b>Status: </b>" + allTasks[selectedTask].status +
+    "<br> <button id = 'deleteButton'>Deletar esta tarefa</button>"
+
+    var deleteButton = document.getElementById("deleteButton")    //delete task
+
+    deleteButton.onclick = function(){
+        allTasks.splice(selectedTask, 1);
+        console.log(selectedTask);
+        console.log(allTasks);
+        showingSelectedTask.innerHTML = "<p style = 'color: red' >Tarefa deletada com sucesso</p>";
+        
+        showTasks.innerHTML = " ";
+        
+        showTasksByName();
+    }
+    
+
 }
+
+
+
 
 
 
