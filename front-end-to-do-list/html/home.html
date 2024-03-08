@@ -6,56 +6,59 @@
     <link rel="stylesheet" href="../css/style.css">
     <title>To do List</title>
 </head>
+
 <body>
-    <ul class="nameTasks">Inserir tarefa</ul>
-        <div class="hiddenTasks">
-            <li>Nome da Tarefa</li>
-            <input type="text" id="taskName">
+    <button class="nameTasks">Criar Tarefas</button>
+    <button class="nameTasks">Visualizar/ Editar/ Deletar Tarefa</button>
+    <div id="paginaGeral">
 
-            <li>Descrição da Tarefa</li>
-            <textarea name="taskDescription" id="taskDescription" cols="30" rows="10" maxlength="300"></textarea>
-
-            <li>Data de finalização da Tarefa: </li>
-            <input type="date" id="taskEndDate">
-
-            <li>Informe a prioridade</li>
-            <select name="priority" id="selectPriority">
-                <option value="1">1 - Baixíssima</option>
-                <option value="2">2 - Baixa</option>
-                <option value="3">3 - Média</option>
-                <option value="4">4 - Alta</option>
-                <option value="5">5 - Urgente</option>
-            </select>
-            
-            <li>Categoria</li>
-            <input type="text" id="taskCategory">
-            
-            <li>Status</li>
-            <select name="status" id="selectStatus">
-                <option value="1">Backlog</option>
-                <option value="2">To Do (A fazer)</option>
-                <option value="3">Doing (Fazendo)</option>
-                <option value="4">Done (Feito)</option>
-            </select>
-
-            <button type="submit" id="submitButton">Inserir</button>
-            <div id="msg"></div>
+        <div id="hiddenTasks">
+            <select id="showTasks"></select>
+            <div id="showingSelectedTask"></div>
         </div>
 
-    <ul class="nameTasks" id="viewTask">Listar tarefas</ul>
-        <div class="hiddenTasks">
-            <select id="showTasks">
+            <div id="hiddenForm">
+
+                <li>Nome da Tarefa</li>
+                <input type="text" id="taskName" name="taskName">
+
+
+                <li>Descrição da Tarefa</li>
+                <textarea name="taskDescription" id="taskDescription" cols="30" rows="10" maxlength="330"></textarea>
                 
-            </select>   
-            
-        </div>
-        <div id="showingSelectedTask"></div>
+                <li>Data de finalização da Tarefa: </li>
+                <input type="date" id="taskEndDate">
 
-   
-    
+                <li>Categoria</li>
+                <input type="text" id="taskCategory">
+                
+                <li>Informe a prioridade</li>
+                <select name="priority" id="selectPriority">
+                    <option >1 - Baixíssima</option>
+                    <option >2 - Baixa</option>
+                    <option >3 - Média</option>
+                    <option >4 - Alta</option>
+                    <option >5 - Urgente</option>
+                </select>
+        
+        
+                <li>Status</li>
+                <select name="status" id="selectStatus" class="selectStatus">
+                    <option >Backlog</option>
+                    <option >To Do (A fazer)</option>
+                    <option >Doing (Fazendo)</option>
+                    <option >Done (Feito)</option>
+                </select>
 
+                
+                
+                <div id="forButtons">
+                    <button type="submit" id="submitButton">Inserir</button>
+                </div>
 
-
+            </div>
+            <div id="msg"></div>
+    </div>
 
     <script src="../javascript/script.js"></script>
 </body>

@@ -1,31 +1,55 @@
-.hiddenTasks{
+body{
+    background-color: rgb(178, 186, 184);
+}
+
+#hiddenForm{
     display: none;
     margin-left: 25px;
     width: 200px;
 }
 
+#hiddenTasks{
+    display: none;
+}
+
 .nameTasks{
+    font-size: 18px;
+    font-weight: bold;
     display: block;
     color: white;
-    width: 250px;
-    background-color: rgb(137, 137, 202);
+    width: 300px;
+    background-color: rgb(87, 87, 108);
     border-radius: 3px;
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.628);
     text-align: center;
     padding: 3px;
-    margin-left: 15px;
+    margin: auto;
+}
+
+.nameTasks:hover{
+    background-color: rgb(35, 1, 67);
 }
 
 li{
-    margin-top: 15px;
+    margin-top: 16px;
     margin-bottom: 10px;
+    list-style: none;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.272);
 }
 
+input, select, textarea, button{
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.348); 
+    font-size: 16px;
+} 
 
 button{
     padding: 5px;
-    margin: auto;
-    margin-top: 10px;   
+    margin-right: 20px;   
+    margin-top: 20px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.557);
+    font-variant: small-caps;
+    font-size: 14px;
 }
 
 #msg{
@@ -33,11 +57,26 @@ button{
     padding-top: 15px;
 }
 
-
 #showingSelectedTask{
+    font-size: 18px;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.215);
     display: inline;
     width: 150px;
-    margin-top: 15px;
+}
+
+
+#paginaGeral{
+    margin-top: 100px;
+    background-color: white;
+    padding: 15px;
+    width: 400px;
+    margin: auto;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.443);
     
 }
 
+#showTasks{
+    font-size: 18px;
+    margin-bottom: 25px;
+}
