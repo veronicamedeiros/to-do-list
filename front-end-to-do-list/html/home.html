@@ -8,11 +8,17 @@
 </head>
 
 <body>
-    <button class="nameTasks">Criar Tarefas</button>
-    <button class="nameTasks">Visualizar/ Editar/ Deletar Tarefa</button>
+    <button class="mainButtons">Criar Tarefas</button>
+    <button class="mainButtons">Visualizar/ Editar/ Deletar Tarefa</button>
     <div id="paginaGeral">
 
         <div id="hiddenTasks">
+            <label for="" id="labelRadio">Você deseja listar as Tarefas  por:<br><br>
+            <input type="radio" name="filterType" value="names"> Nome
+            <input type="radio" name="filterType" value="category"> Categoria
+            <input type="radio" name="filterType" value="priority"> Prioridade
+            <input type="radio" name="filterType" value="status"> Status
+            </label>
             <select id="showTasks"></select>
             <div id="showingSelectedTask"></div>
         </div>
@@ -44,15 +50,13 @@
         
                 <li>Status</li>
                 <select name="status" id="selectStatus" class="selectStatus">
-                    <option >Backlog</option>
-                    <option >To Do (A fazer)</option>
-                    <option >Doing (Fazendo)</option>
-                    <option >Done (Feito)</option>
+                    <option>Backlog</option>
+                    <option>To Do (A fazer)</option>
+                    <option>Doing (Fazendo)</option>
+                    <option>Done (Feito)</option>
                 </select>
-
                 
-                
-                <div id="forButtons">
+                <div id="forInternalButtons">
                     <button type="submit" id="submitButton">Inserir</button>
                 </div>
 

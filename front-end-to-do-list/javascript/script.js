@@ -1,20 +1,18 @@
+var allTasks = [];
+
 var taskName = document.getElementById("taskName");
+
 var taskDescription = document.getElementById("taskDescription");
+
 var taskEndDate = document.getElementById("taskEndDate");
 
 var selectPriority = document.getElementById("selectPriority");
 var selectedPriorityIndex = selectPriority.options.selectedIndex;
-var selectedPriorityValue = selectPriority.options[selectedPriorityIndex].innerHTML;
-
 
 var taskCategory = document.getElementById("taskCategory");
 
 var selectStatus = document.getElementById("selectStatus");
 var selectedStatus = selectStatus.options.selectedIndex;
-var selectedStatusValue = selectStatus.options[selectedStatus].innerHTML;
-
-
-var submitButton = document.getElementById("submitButton")
 
 var msg = document.getElementById("msg");
 
@@ -22,17 +20,14 @@ var showTasks = document.getElementById("showTasks")
 
 var showingSelectedTask = document.getElementById('showingSelectedTask');
 
-
-var allTasks = [{names: "Criar classe mãe Pessoa", description: "criar propriedades: Bairro, Cidade, Estado, Telefone, E-mail", endDate: "2024-03-30", category: "classe", priority: "1 - Baixíssima", status: "To Do (A fazer)" },
-{names: "Criar classe Candidato", description: "criar propriedades: cpf, idade", endDate: "2024-03-30", category: "classe", priority: "4 - Alta", status: "To Do (A fazer)" }, 
-{ names: "Criar classe Empresa", description: "Incluir atributos CNPJ e Razão Social.", endDate: "2024-03-22", category: "classe", priority: "1 - Baixíssima", status: "To Do (A fazer)"}]; //lista de todas as tarefas
-
-
 var hiddenForm = document.getElementById("hiddenForm");
-var nameTasks = document.getElementsByClassName("nameTasks");
 var hiddenTasks = document.getElementById("hiddenTasks");
 
-var forButtons = document.getElementById("forButtons");
+
+var submitButton = document.getElementById("submitButton");
+var mainButtons = document.getElementsByClassName("mainButtons");
+var forInternalButtons = document.getElementById("forInternalButtons");
+
 
 var formList = [taskName, taskDescription, taskEndDate, taskCategory, selectPriority, selectStatus];
 
@@ -46,27 +41,52 @@ function waitingSeconds(sentence){
     },1000)
 }
 
-function addTasks(objectx, listx){  //função para adicionar um objeto à lista
+function addTasks(objectx, listx){  //adicionar um objeto à lista
     listx.push(objectx);
 }
 
 
-function showTasksByName(){
+function listTasks(){ //list tasks
+
     
-    showTasks.innerHTML = " ";
-    showTasks.innerHTML = "<option selected hidden>Selecione uma tarefa</option>";
-    for (task in allTasks){
-        showTasks.innerHTML += "<option>" + allTasks[task].names + "</option>";
+    var radio = document.getElementsByName("filterType");
+    var radioSelected;
+
+    if(radioSelected = "undefined"){
+        showTasks.innerHTML = "<option selected hidden>Selecione uma tarefa</option>";
+        for (var task in allTasks){     
+            showTasks.innerHTML += "<option>" + allTasks[task].names + "</option>"; 
+        }
+    }
+    document.getElementById("labelRadio").onchange = function(){
+
+        for (var pos = 0;  pos < radio.length; pos++) {
+            if (radio[pos].checked) {
+                radioSelected = radio[pos].value;
+            }
+        }
+            
+        showTasks.innerHTML = " ";
+        showTasks.innerHTML = "<option selected hidden>Selecione uma tarefa</option>";
+
+        for (var task in allTasks){
+            if(radioSelected == "names"){
+                showTasks.innerHTML += "<option>" + allTasks[task][radioSelected] + "</option>";
+            }
+            else{
+                showTasks.innerHTML += "<option>" + allTasks[task][radioSelected] + " -> " + allTasks[task].names + "</option>";
+            }
+        }
     }
 }
 
 
-for (var index = 0; index < nameTasks.length; index ++){
+for (var index = 0; index < mainButtons.length; index ++){
    
-    nameTasks[index].onclick = function(){
-
+    mainButtons[index].onclick = function(){
 
         if (this.innerHTML == "Criar Tarefas"){
+            
             for(var pos in formList){
                 formList[pos].value = " "
             }
@@ -83,7 +103,7 @@ for (var index = 0; index < nameTasks.length; index ++){
     }
 }   
 
-showTasks.innerHTML = showTasksByName(); 
+showTasks.innerHTML = listTasks(); 
 
 showTasks.onchange = function(){   //show selected task
 
@@ -102,23 +122,23 @@ showTasks.onchange = function(){   //show selected task
     "<br> <button id = 'deleteButton'>Deletar esta tarefa</button>" +
     "<button id = 'editButton'>Editar esta tarefa</button>"
 
+
     var deleteButton = document.getElementById("deleteButton")    //delete task
 
     deleteButton.onclick = function(){
 
         allTasks.splice(selectedTask, 1);
-        showTasksByName()
+        listTasks()
         waitingSeconds("<p style = 'color: red' >Tarefa deletada com sucesso</p>")    
     }
 
-    showTasksByName();
+    listTasks();
 
     var editButton = document.getElementById("editButton");
 
 
     editButton.onclick = function(){   //edit task
 
-        selectedStatus = selectStatus.options.selectedIndex;
 
         formList = [taskName, taskDescription, taskEndDate, taskCategory, selectPriority.options[selectedPriorityIndex], selectStatus.options[selectedStatus]];
 
@@ -132,10 +152,10 @@ showTasks.onchange = function(){   //show selected task
 
         submitButton.style.display = "none";
 
-        forButtons.innerHTML = "<br> <button id = 'saveEditionButton'>Salvar Alterações</button></br>";
+        forInternalButtons.innerHTML = "<br> <button id = 'saveEditionButton'>Salvar Alterações</button></br>";
      
         hiddenForm.style.display = "block";
-        showTasksByName()
+        listTasks()
 
         var saveEditionButton = document.getElementById("saveEditionButton");
 
@@ -143,13 +163,13 @@ showTasks.onchange = function(){   //show selected task
             
             allTasks[selectedTask] = submitButton.onclick();
             deleteButton.onclick();
-            showTasksByName()
+            listTasks()
             waitingSeconds("<p style = 'color: green'>Tarefa alterada com sucesso</p>")
         }
     }
 }
 
-    showTasksByName();
+    listTasks();
 
     submitButton.onclick = function(){
         
@@ -172,7 +192,7 @@ showTasks.onchange = function(){   //show selected task
             window.alert("Ocorreu um erro.")
         }
 
-        showTasksByName();
+        listTasks();
     }
 
 
