@@ -23,10 +23,10 @@ var showingSelectedTask = document.getElementById('showingSelectedTask');
 var hiddenForm = document.getElementById("hiddenForm");
 var hiddenTasks = document.getElementById("hiddenTasks");
 
-
-var submitButton = document.getElementById("submitButton");
 var mainButtons = document.getElementsByClassName("mainButtons");
 var forInternalButtons = document.getElementById("forInternalButtons");
+var submitButton = document.getElementById("submitButton");
+var saveEditionButton = document.getElementById("saveEditionButton");
 
 
 var formList = [taskName, taskDescription, taskEndDate, taskCategory, selectPriority, selectStatus];
@@ -38,16 +38,32 @@ function waitingSeconds(sentence){
         msg.innerHTML = " ";
         showingSelectedTask.innerHTML = " ";
         hiddenForm.style.display = "none";
-    },1000)
+    }, 800)
 }
 
-function addTasks(objectx, listx){  //adicionar um objeto à lista
+
+function addTasks(objectx, listx){  //adiciona um objeto à lista
+    
     listx.push(objectx);
+    var auxList = [];
+    
+    for (var pri = 0; pri <= 5; pri ++){  //ordena por prioridade
+
+        for (var key in listx){
+
+            if(listx[key].priority == pri){
+                auxList.push(listx[key]);   
+            }
+
+            if (pri == 5){
+                allTasks = auxList 
+            }
+        }
+    }
 }
 
 
 function listTasks(){ //list tasks
-
     
     var radio = document.getElementsByName("filterType");
     var radioSelected;
@@ -58,8 +74,8 @@ function listTasks(){ //list tasks
             showTasks.innerHTML += "<option>" + allTasks[task].names + "</option>"; 
         }
     }
-    document.getElementById("labelRadio").onchange = function(){
-
+    document.getElementById("labelRadio").onchange = function(){  //exibe por tipo escolhido
+        
         for (var pos = 0;  pos < radio.length; pos++) {
             if (radio[pos].checked) {
                 radioSelected = radio[pos].value;
@@ -70,30 +86,36 @@ function listTasks(){ //list tasks
         showTasks.innerHTML = "<option selected hidden>Selecione uma tarefa</option>";
 
         for (var task in allTasks){
+
             if(radioSelected == "names"){
                 showTasks.innerHTML += "<option>" + allTasks[task][radioSelected] + "</option>";
             }
             else{
+                
                 showTasks.innerHTML += "<option>" + allTasks[task][radioSelected] + " -> " + allTasks[task].names + "</option>";
-            }
+            }         
         }
     }
 }
 
 
-for (var index = 0; index < mainButtons.length; index ++){
+for (var index = 0; index < mainButtons.length; index ++){ 
    
     mainButtons[index].onclick = function(){
 
         if (this.innerHTML == "Criar Tarefas"){
-            
+
+            saveEditionButton.style.display = "none";
+            submitButton.style.display = "block";
+
             for(var pos in formList){
-                formList[pos].value = " "
+                formList[pos].value = " ";
             }
         }
         
         hiddenForm.style.display = "block";
         hiddenTasks.style.display = "none";
+        
 
         if (this.innerHTML != "Criar Tarefas"){
             
@@ -106,7 +128,6 @@ for (var index = 0; index < mainButtons.length; index ++){
 showTasks.innerHTML = listTasks(); 
 
 showTasks.onchange = function(){   //show selected task
-
 
     showingSelectedTask.innerHTML = " ";
     
@@ -138,7 +159,9 @@ showTasks.onchange = function(){   //show selected task
 
 
     editButton.onclick = function(){   //edit task
-
+        
+        showingSelectedTask.innerHTML = " ";
+        listTasks();
 
         formList = [taskName, taskDescription, taskEndDate, taskCategory, selectPriority.options[selectedPriorityIndex], selectStatus.options[selectedStatus]];
 
@@ -150,20 +173,19 @@ showTasks.onchange = function(){   //show selected task
         }
  
 
-        submitButton.style.display = "none";
-
-        forInternalButtons.innerHTML = "<br> <button id = 'saveEditionButton'>Salvar Alterações</button></br>";
-     
         hiddenForm.style.display = "block";
         listTasks()
 
-        var saveEditionButton = document.getElementById("saveEditionButton");
-
+        
+        saveEditionButton.style.display = "block"
+        submitButton.style.display = "none";
+        
         saveEditionButton.onclick = function(){
-            
+            listTasks()
             allTasks[selectedTask] = submitButton.onclick();
             deleteButton.onclick();
             listTasks()
+            
             waitingSeconds("<p style = 'color: green'>Tarefa alterada com sucesso</p>")
         }
     }

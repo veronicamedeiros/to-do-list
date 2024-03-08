@@ -19,6 +19,7 @@
             <input type="radio" name="filterType" value="priority"> Prioridade
             <input type="radio" name="filterType" value="status"> Status
             </label>
+
             <select id="showTasks"></select>
             <div id="showingSelectedTask"></div>
         </div>
@@ -28,9 +29,8 @@
                 <li>Nome da Tarefa</li>
                 <input type="text" id="taskName" name="taskName">
 
-
                 <li>Descrição da Tarefa</li>
-                <textarea name="taskDescription" id="taskDescription" cols="30" rows="10" maxlength="330"></textarea>
+                <textarea name="taskDescription" id="taskDescription" cols="30" rows="7" maxlength="330"></textarea>
                 
                 <li>Data de finalização da Tarefa: </li>
                 <input type="date" id="taskEndDate">
@@ -40,13 +40,12 @@
                 
                 <li>Informe a prioridade</li>
                 <select name="priority" id="selectPriority">
-                    <option >1 - Baixíssima</option>
-                    <option >2 - Baixa</option>
-                    <option >3 - Média</option>
-                    <option >4 - Alta</option>
-                    <option >5 - Urgente</option>
+                    <option value="1">1 - Baixíssima</option>
+                    <option value="2">2 - Baixa</option>
+                    <option value="3">3 - Média</option>
+                    <option value="4">4 - Alta</option>
+                    <option value="5">5 - Urgente</option>
                 </select>
-        
         
                 <li>Status</li>
                 <select name="status" id="selectStatus" class="selectStatus">
@@ -56,9 +55,10 @@
                     <option>Done (Feito)</option>
                 </select>
                 
-                <div id="forInternalButtons">
-                    <button type="submit" id="submitButton">Inserir</button>
-                </div>
+                <br><br>
+                <button type="submit" id="submitButton">Inserir</button>
+                <button id = 'saveEditionButton'>Salvar Alterações</button>
+                <br>
 
             </div>
             <div id="msg"></div>
